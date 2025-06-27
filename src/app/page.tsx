@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import Image from 'next/image';
 import SearchForm from '@/components/search-form';
 import MixesTable from '@/components/mixes-table';
 import MixCreator from '@/components/mix-creator';
@@ -33,13 +34,22 @@ export default async function Home({ searchParams }: PageProps) {
         {/* Search Section */}
         <div>
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            <h1 className="text-3xl font-bold text-gray-900 mb-4">
               DJ Mix Database
             </h1>
-            <p className="text-gray-600">
-              Search for songs and find related mixes
-            </p>
+            <div className="flex justify-center mb-4">
+              <Image
+                src="/DJVItaminZeeLogo.jpeg"
+                alt="DJ Vitamin Zee Logo"
+                width={300}
+                height={150}
+                className="object-contain"
+                priority
+              />
+            </div>
           </div>
+
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">Find mixes</h2>
 
           <div className="mb-8">
             <SearchForm />
@@ -53,9 +63,9 @@ export default async function Home({ searchParams }: PageProps) {
 
           {query && (
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">
                 Mixes containing songs matching "{query}"
-              </h2>
+              </h3>
               <Suspense fallback={
                 <div className="text-center py-8">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>

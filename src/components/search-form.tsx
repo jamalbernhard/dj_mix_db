@@ -18,7 +18,7 @@ export default function SearchForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto">
+    <form onSubmit={handleSubmit} className="w-full">
       <div className="flex gap-2">
         <input
           type="text"
