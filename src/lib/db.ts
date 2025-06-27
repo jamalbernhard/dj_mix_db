@@ -70,4 +70,31 @@ export async function getMixesBySongSearch(searchTerm: string): Promise<Mix[]> {
     console.error('Error fetching mixes:', error);
     throw new Error('Failed to fetch mixes');
   }
+}
+
+// Create a new mix
+export async function createMix(firstSongId: number, secondSongId: number, notes: string = ''): Promise<number> {
+  try {
+    const [result] = await pool.execute(
+      `INSERT INTO Mix (first_song_id, second_song_id, notes) VALUES (?, ?, ?)`,
+      [firstSongId, secondSongId, notes]
+    );
+    return (result as any).insertId;
+  } catch (error) {
+    console.error('Error creating mix:', error);
+    throw new Error('Failed to create mix');
+  }
+}
+
+// Get all songs (for song selection)
+export async function getAllSongs(): Promise<Song[]> {
+  try {
+    const [rows] = await pool.execute(
+      `SELECT * FROM Song ORDER BY title ASC`
+    );
+    return rows as Song[];
+  } catch (error) {
+    console.error('Error fetching all songs:', error);
+    throw new Error('Failed to fetch songs');
+  }
 } 
