@@ -99,6 +99,19 @@ export async function updateMixNotes(mixId: number, notes: string): Promise<void
   }
 }
 
+// Delete a mix
+export async function deleteMix(mixId: number): Promise<void> {
+  try {
+    await pool.execute(
+      `DELETE FROM Mix WHERE id = ?`,
+      [mixId]
+    );
+  } catch (error) {
+    console.error('Error deleting mix:', error);
+    throw new Error('Failed to delete mix');
+  }
+}
+
 // Get all songs (for song selection)
 export async function getAllSongs(): Promise<Song[]> {
   try {
