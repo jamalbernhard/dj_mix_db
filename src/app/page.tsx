@@ -3,7 +3,7 @@ import SearchForm from '@/components/search-form';
 import MixesTable from '@/components/mixes-table';
 import MixCreator from '@/components/mix-creator';
 import { getMixesBySongSearch } from '@/lib/db';
-import { createMixAction, searchSongsAction } from './actions';
+import { createMixAction, searchSongsAction, updateMixNotesAction } from './actions';
 
 interface PageProps {
   searchParams?: Promise<{
@@ -62,7 +62,7 @@ export default async function Home({ searchParams }: PageProps) {
                   <p className="mt-2 text-gray-500">Loading mixes...</p>
                 </div>
               }>
-                <MixesTable mixes={mixes} />
+                <MixesTable mixes={mixes} onUpdateNotes={updateMixNotesAction} />
               </Suspense>
             </div>
           )}

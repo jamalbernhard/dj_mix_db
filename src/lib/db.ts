@@ -86,6 +86,19 @@ export async function createMix(firstSongId: number, secondSongId: number, notes
   }
 }
 
+// Update mix notes
+export async function updateMixNotes(mixId: number, notes: string): Promise<void> {
+  try {
+    await pool.execute(
+      `UPDATE Mix SET notes = ? WHERE id = ?`,
+      [notes, mixId]
+    );
+  } catch (error) {
+    console.error('Error updating mix notes:', error);
+    throw new Error('Failed to update mix notes');
+  }
+}
+
 // Get all songs (for song selection)
 export async function getAllSongs(): Promise<Song[]> {
   try {

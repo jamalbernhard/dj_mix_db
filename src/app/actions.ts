@@ -1,6 +1,6 @@
 'use server';
 
-import { createMix, searchSongs } from '@/lib/db';
+import { createMix, searchSongs, updateMixNotes } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 
 export async function createMixAction(firstSongId: number, secondSongId: number, notes: string): Promise<boolean> {
@@ -20,5 +20,16 @@ export async function searchSongsAction(searchTerm: string) {
   } catch (error) {
     console.error('Failed to search songs:', error);
     return [];
+  }
+}
+
+export async function updateMixNotesAction(mixId: number, notes: string): Promise<boolean> {
+  try {
+    await updateMixNotes(mixId, notes);
+    revalidatePath('/');
+    return true;
+  } catch (error) {
+    console.error('Failed to update mix notes:', error);
+    return false;
   }
 } 
